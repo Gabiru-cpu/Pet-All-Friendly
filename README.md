@@ -43,8 +43,8 @@
 
 ### Pré-requisitos
 
-- Node.js
-- Angular CLI
-- Java 17
+- Node.js 22.14.0
+- Angular CLI 19.2.6
+- Java 17.0.10
 - Maven
 - PostgreSQL
