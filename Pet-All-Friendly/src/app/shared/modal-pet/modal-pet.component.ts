@@ -26,6 +26,8 @@ export class ModalPetComponent {
   petMicrochip: string = '';
   petVaccines: string = '';
   petPhotoUrl: string = '';
+  fileError: string | null = null;
+  selectedFileName: string | null = null;
 
   constructor(
     public dialogRef: MatDialogRef<ModalPetComponent>,
@@ -73,12 +75,39 @@ export class ModalPetComponent {
           sexo: this.petGender === 'Macho',
           microchip: this.petMicrochip === 'Sim',
           vacinas: this.petVaccines ? this.petVaccines.split(',').map(v => v.trim()) : [],
-          fotoUrl: this.petPhotoUrl
+          imageData: this.petPhotoUrl?.replace(/^data:image\/[^;]+;base64,/, '')
         }
       });
     }
   }
   
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) return;
   
+    const file = input.files[0];
+  
+    if (file.size > 2 * 1024 * 1024) {
+      this.fileError = 'A imagem deve ter no máximo 2MB.';
+      return;
+    }
+  
+    if (!file.type.match('image/jpeg')) {
+      this.fileError = 'A imagem deve ser um arquivo JPG.';
+      return;
+    }
+
+    this.selectedFileName = file.name;
+  
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.petPhotoUrl = reader.result as string;
+      this.fileError = null;
+    };
+    reader.onerror = () => {
+      this.fileError = 'Erro ao ler o arquivo.';
+    };
+    reader.readAsDataURL(file);
+  }
   
 }

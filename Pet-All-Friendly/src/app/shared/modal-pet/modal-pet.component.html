@@ -50,18 +50,41 @@
             <mat-option value="Sim">Sim</mat-option>
             <mat-option value="Não">Não</mat-option>
           </mat-select>
-        </mat-form-field>
-  
+        </mat-form-field>                                 
+        
+        
+        
+      </div>
+
+      <div *ngIf="data.action !== 'delete'">
+
         <mat-form-field appearance="fill">
           <mat-label>Vacinas (separadas por vírgula)</mat-label>
           <input matInput [(ngModel)]="petVaccines" />
         </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>URL da Foto</mat-label>
-            <input matInput [(ngModel)]="petPhotoUrl" />
-        </mat-form-field>
+  
+        <div class="foto-upload-wrapper">
+          <label for="photoUpload">Foto do Pet (JPG até 2MB)</label><br>
         
+          <button mat-raised-button color="primary" (click)="fileInput.click()">
+            Escolher arquivo
+          </button>
+        
+          <input
+            #fileInput
+            type="file"
+            id="photoUpload"
+            (change)="onFileSelected($event)"
+            accept=".jpg,image/jpeg"
+            class="input-foto-hidden"
+          />
+        
+          <div class="file-name" *ngIf="selectedFileName">
+            {{ selectedFileName }}
+          </div>
+        
+          <small *ngIf="fileError" class="file-error">{{ fileError }}</small>
+        </div> 
       </div>
   
       <div *ngIf="data.action === 'delete'">
@@ -69,7 +92,7 @@
       </div>
     </div>
     
-    <div mat-dialog-actions align="end">
+    <div style="margin-top: 1rem;" mat-dialog-actions align="end">
       <button class="mr" mat-button (click)="onCancel()">Cancelar</button>
       <button class="mr" mat-raised-button color="primary" (click)="onConfirm()">
         {{ data.action === 'delete' ? 'Deletar' : 'Salvar' }}

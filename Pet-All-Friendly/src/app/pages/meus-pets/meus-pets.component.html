@@ -53,11 +53,11 @@
     <ng-template #noPetSelected>
       <mat-card>
         <mat-card-header>
-          <mat-card-title>Nenhum pet selecionado</mat-card-title>
+          <mat-card-title style="text-align: center;">Nenhum pet selecionado</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <p>Selecione um pet da lista ou registre um novo.</p>
-          <button mat-raised-button color="primary" (click)="registerNewPet()">Registrar novo pet</button>
+          <p style="text-align: center;">Selecione um pet da lista ou registre um novo.</p>
+          <button style="width: 100%;" mat-raised-button color="primary" (click)="registerNewPet()"><mat-icon>add</mat-icon>Registrar novo pet</button>
         </mat-card-content>
       </mat-card>
     </ng-template>

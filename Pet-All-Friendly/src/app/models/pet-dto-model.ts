@@ -5,7 +5,7 @@ export interface PetDTO {
   especie: string;
   raca: string;
   idade: number;
-  fotoUrl?: string;
+  imageData?: string;
   peso?: number;
   altura?: number;
   microchip?: boolean;

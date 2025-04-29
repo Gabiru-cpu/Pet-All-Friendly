@@ -44,7 +44,7 @@ export class MeusPetsComponent implements OnInit {
           gender: pet.sexo !== undefined ? (pet.sexo ? 'Macho' : 'Fêmea') : 'Não informado',
           microchip: pet.microchip !== undefined ? (pet.microchip ? 'Sim' : 'Não') : 'Não informado',
           vaccines: pet.vacinas?.length ? pet.vacinas.join(', ') : 'Não informado',
-          image: pet.fotoUrl || 'assets/default-pet.png',
+          image: pet.imageData ? `data:image/jpeg;base64,${pet.imageData}` : 'assets/default-pet.png',
           owner: pet.dono ? pet.dono.nome : 'Sem dono'
         }));
         this.cdr.detectChanges();
@@ -61,8 +61,9 @@ export class MeusPetsComponent implements OnInit {
 
   registerNewPet() {
     const dialogRef = this.dialog.open(ModalPetComponent, {
-      width: '70vw',
-      height: '95vh',
+      width: '35vw',
+      height: '75vh',
+      maxWidth: 'none',
       data: { action: 'create' }
     });
 
@@ -84,8 +85,9 @@ export class MeusPetsComponent implements OnInit {
 
   editPet(pet: any) {
     const dialogRef = this.dialog.open(ModalPetComponent, {
-      width: '70vw',
-      height: '95vh',
+      width: '35vw',
+      height: '75vh',
+      maxWidth: 'none',
       data: { action: 'edit', pet }
     });
   
@@ -109,7 +111,7 @@ export class MeusPetsComponent implements OnInit {
 
   deletePet(pet: any) {
     this.dialog.open(ModalPetComponent, {
-      width: '50vw',
+      width: '35vw',
       height: '30vh',
       data: { action: 'delete', pet }
     }).afterClosed().subscribe(result => {
