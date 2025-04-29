@@ -24,7 +24,6 @@
 
 ### Banco de Dados
 - PostgreSQL
-- Docker (para ambiente de desenvolvimento)
 - Migrations e scripts SQL para estrutura inicial
 
 ---
@@ -33,13 +32,10 @@
 
 - ✅ Cadastro de animais silvestres e domésticos
 - ✅ Sistema de lembretes (vacinas, consultas, alimentação, etc)
-- ✅ Upload e leitura de arquivos PDF (organização e reordenação de conteúdo)
 - ✅ Autenticação com tokens JWT
 - ✅ Perfis de usuário com OAuth2 e permissões
-- ✅ Integração com VLibras para acessibilidade
 - ✅ Interface amigável e acessível
 - ✅ Backend seguro com Spring Security
-- ✅ Microsserviços com Docker (em construção futura)
 
 ---
 
@@ -47,8 +43,8 @@
 
 ### Pré-requisitos
 
-- Node.js
-- Angular CLI
-- Java 17
+- Node.js 22.14.0
+- Angular CLI 19.2.6
+- Java 17.0.10
 - Maven
 - PostgreSQL
