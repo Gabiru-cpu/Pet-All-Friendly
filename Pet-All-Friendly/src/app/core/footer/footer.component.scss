@@ -1,0 +1,41 @@
+.footer {
+  background-color: #1a202c; // Cinza-escuro
+  color: #ffffff; // Texto branco
+  text-align: center;
+  padding-top: 1rem;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .footer-text {
+      font-size: 1rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 15px;
+
+      li {
+        a {
+          text-decoration: none;
+          color: #cbd5e0; // Cinza-claro
+          font-size: 0.9rem;
+          transition: color 0.3s;
+
+          &:hover {
+            color: #f7fafc; // Branco ao passar o mouse
+          }
+        }
+      }
+    }
+  }
+}

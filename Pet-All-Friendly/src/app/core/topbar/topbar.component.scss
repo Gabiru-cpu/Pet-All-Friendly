@@ -1,0 +1,171 @@
+/* Estilização da toolbar principal */
+.main-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+
+
+
+mat-toolbar a {
+  border-radius: 6px;
+}
+
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid #ddd;
+  justify-content: space-between; /* Mantém espaçamento nos ícones */
+
+  span {
+    display: flex;
+  }
+
+  a {
+    text-decoration: none;
+    color: #6B7280;
+    font-weight: 500;
+    transition: 0.3s;
+    border-radius: 6px;
+
+    &:hover,
+    &.active {
+      color: #161616;
+      background-color: #E9F2FF;
+    }
+  }
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  margin-right: 1rem;
+  height: 65px;
+  width: auto;
+  background-color: transparent !important;
+}
+
+/* Links de navegação */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+/* Espaçador para alinhar os itens à direita */
+.spacer {
+  flex: 1;
+}
+
+/* Ícones do canto direito */
+button[mat-icon-button] {
+  color: #6B7280;
+}
+
+/* Botão de usuário */
+.user-btn {
+  display: flex;
+  align-items: center;
+  border: 2px solid #ddd;
+  border-radius: .5rem;
+  margin-left: 5px;
+  margin-right: 2vw;
+  img {
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6B7280;
+  }
+
+}
+
+/* Segunda Toolbar (submenu de Desenvolvimento) */
+.submenu {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  align-items: center;
+  padding: 0 16px;
+  align-items: center;
+  color: #161616;
+
+  a, button {
+    border-radius: 6px;
+    color: #6B7280;
+    &:hover,
+    &.active {
+      color: #161616;
+      background-color: #E9F2FF;
+    }
+  }
+}
+
+@media (max-width: 958px) {
+  .username{ display: none !important;}
+
+  .usernameicon {
+    font-size: 1.3rem !important;
+    width: auto !important;
+    margin-right: 0px !important;
+  }
+}
+
+/* Botão do submenu CNPJTNextGen */
+.cnpj-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  span {
+    display: flex;
+  }
+}
+
+/* Responsividade para Mobile */
+@media (max-width: 808px) {
+  /* Esconder links de navegação no mobile */
+  .nav-links {display: none;}
+  .config-icon {display: none;}
+
+  /* Ajustar espaçamento */
+  mat-toolbar {
+    padding: 0 12px;
+    position: relative; /* Garante alinhamento correto */
+  }
+
+  /* Centralizar a logo no mobile */
+  .logo {
+    height: 75px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Ajustar tamanho da logo */
+  .logo-img {
+
+    margin-right: 0; /* Remove margem para centralizar */
+  }
+
+  /* Ocultar nome do usuário no mobile */
+  .user-btn {
+    display: none;
+  }
+}
+
+
+

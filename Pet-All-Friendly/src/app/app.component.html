@@ -1,0 +1,59 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="over" position="start" class="sidenav">
+    <div class="main-container">
+      <div class="sidenav-header">
+        <img src="assets/logo.png" alt="Logo" class="logo">
+        <button mat-icon-button (click)="sidenav.close()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <div class="sidenav-content">
+        <button class="no-dflex" mat-button (click)="sidenav.close()">
+          <span>
+            <mat-icon>account_circle</mat-icon> {{ user.name }}
+          </span>
+          <p>{{ user.email }}</p>
+        </button>
+
+        <button mat-button routerLink="/home" (click)="sidenav.close()">
+          <mat-icon>home</mat-icon> Home
+        </button>
+
+        <button mat-button routerLink="/meus-pets" (click)="sidenav.close()">
+          <mat-icon>pets</mat-icon> Meus Pets
+        </button>
+
+        <button mat-button routerLink="/meus-pets" (click)="sidenav.close()">
+          <mat-icon>library_books</mat-icon> Cuidados
+        </button>
+
+        <button mat-button routerLink="/hospitais" (click)="sidenav.close()">
+          <mat-icon>local_hospital</mat-icon> Hospitais
+        </button>
+
+        <button mat-button routerLink="/petshops" (click)="sidenav.close()">
+          <mat-icon>add_shopping_cart</mat-icon> Pet Shop
+        </button>
+
+        <button mat-button routerLink="/premium" (click)="sidenav.close()">
+          <mat-icon>stars</mat-icon> Premium
+        </button>
+      </div>
+
+      <div class="sidenav-footer">
+        <button mat-button (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon> Sair
+        </button>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <!-- Esconde a Topbar quando estivermos na tela de login -->
+    <app-topbar *ngIf="showTopbar" (toggleSidebarEvent)="toggleSidebar()"></app-topbar>
+
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

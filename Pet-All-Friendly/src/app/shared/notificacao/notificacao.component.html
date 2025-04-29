@@ -1,0 +1,60 @@
+<div class="notification-container">
+  <!-- Cabeçalho -->
+  <div class="notification-header">
+    <h2 class="notification-title" mat-dialog-title>
+      Lembretes
+      <mat-icon>expand_more</mat-icon>
+    </h2>
+
+    <!-- Botão de Adicionar Lembrete -->
+    <button mat-icon-button (click)="criarLembrete()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content>
+    <mat-tab-group>
+      <mat-tab label="Notificações">
+        <div class="notification-tab">
+          <p class="notification-tab-text">Notificações</p>
+          <span class="notification-badge">{{ unreadNotifications }}</span>
+        </div>
+
+        <div class="notification" *ngFor="let notification of notificationList">
+          <div class="notification-indicator">
+            <span 
+              class="unread-indicator" 
+              [ngStyle]="{'background-color': notification.seen ? 'transparent' : '#0081F1'}">
+            </span>
+          </div>
+
+          <div class="notification-content">
+            <div>
+              <p class="title">{{ notification.title }}</p>
+              <p class="body">{{ notification.body }}</p>
+              <small class="pet-name">{{ notification.pet?.name }}</small>
+            </div>
+          </div>
+
+          <div class="icons">
+            <button mat-icon-button (click)="editarLembrete(notification)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deletarLembrete(notification)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </div>
+
+          <div class="notification-date">
+            <p>{{ notification.date }}</p>
+          </div>
+        </div>
+
+        <div *ngIf="notificationList.length === 0" class="no-notifications">
+          Nenhum lembrete encontrado.
+        </div>
+
+      </mat-tab>
+    </mat-tab-group>
+  </mat-dialog-content>
+</div>

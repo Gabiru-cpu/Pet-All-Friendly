@@ -1,0 +1,81 @@
+<section class="vh-100">
+  <div class="container">
+    <div class="row">
+      <div class="col-left">
+        <div class="logo-container">
+          <img src="assets/logo.png" alt="Logo" height="150px" class="logo-icon">
+        </div>
+
+        <!-- Login -->
+        <div *ngIf="!isRegistering" class="form-container fade-in">
+          <form>
+            <h3 class="form-title">Log in</h3>
+          
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" class="form-input" [(ngModel)]="loginData.email" name="loginEmail">
+            </div>
+          
+            <div class="form-group">
+              <label for="password">Senha</label>
+              <input type="password" id="password" class="form-input" [(ngModel)]="loginData.senha" name="loginPassword">
+            </div>
+          
+            <div class="btn-container">
+              <button type="button" class="btn" (click)="onLogin()">Login</button>
+            </div>
+          
+            <p class="small-text">
+              <a href="#" class="text-muted">Esqueceu sua senha?</a>
+            </p>
+            <p>
+              Não tem uma conta?
+              <a href="#" class="link-info" (click)="showRegister($event)">Criar sua conta</a>
+            </p>
+          </form>
+        </div>
+
+        <!-- Registro -->
+        <div *ngIf="isRegistering" class="form-container fade-in">
+          <form>
+            <h3 class="form-title">Criar Conta</h3>
+
+            <div class="form-group">
+              <label for="name">Nome</label>
+              <input type="text" id="name" class="form-input" [(ngModel)]="registerData.nome" name="registerNome">
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Telefone</label>
+              <input type="tel" id="phone" class="form-input" [(ngModel)]="registerData.telefone" name="registerTelefone">
+            </div>
+
+            <div class="form-group">
+              <label for="reg-email">E-mail</label>
+              <input type="email" id="reg-email" class="form-input" [(ngModel)]="registerData.email" name="registerEmail">
+            </div>
+
+            <div class="form-group">
+              <label for="reg-password">Senha</label>
+              <input type="password" id="reg-password" class="form-input" [(ngModel)]="registerData.senha" name="registerSenha">
+            </div>
+
+            <div class="btn-container">
+              <button type="button" class="btn" (click)="onRegister()">Criar Conta</button>
+            </div>
+
+            <p>
+              Já tem uma conta?
+              <a href="#" class="link-info" (click)="showLogin($event)">Fazer login</a>
+            </p>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="col-right">
+        <img src="assets/login-image.png" alt="Login image" class="login-image">
+      </div>
+    </div>
+  </div>
+</section>

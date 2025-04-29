@@ -1,0 +1,36 @@
+mat-dialog-content {
+    padding-top: 8px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  mat-dialog-actions {
+    margin-top: 20px;
+  }
+  
+  section {
+    p {
+      margin-top: 1rem;
+    }
+  }
+  
+  .main {
+    height: 100%;
+    margin: 0 2rem;
+    display: flex;    
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .mr {
+    margin-right: 1rem;
+  }
+  

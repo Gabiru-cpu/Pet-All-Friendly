@@ -1,0 +1,80 @@
+<div class="main">
+
+    <h2 mat-dialog-title>
+      {{ data.action === 'create' ? 'Cadastrar Novo Pet' : data.action === 'edit' ? 'Editar Pet' : 'Deletar Pet' }}
+    </h2>
+    
+    <div mat-dialog-content class="p-4 ">
+      <div class="form-group" *ngIf="data.action !== 'delete'">
+        <mat-form-field appearance="fill">
+          <mat-label>Nome do Pet</mat-label>
+          <input matInput [(ngModel)]="petName" />
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Espécie</mat-label>
+          <input matInput [(ngModel)]="petSpecie" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Raça</mat-label>
+          <input matInput [(ngModel)]="petBreed" />
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Idade</mat-label>
+          <input matInput type="number" [(ngModel)]="petAge" />
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Peso (kg)</mat-label>
+          <input matInput type="number" [(ngModel)]="petWeight" />
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Altura (cm)</mat-label>
+          <input matInput type="number" [(ngModel)]="petHeight" />
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Sexo</mat-label>
+          <mat-select [(ngModel)]="petGender">
+            <mat-option value="Macho">Macho</mat-option>
+            <mat-option value="Fêmea">Fêmea</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Microchip</mat-label>
+          <mat-select [(ngModel)]="petMicrochip">
+            <mat-option value="Sim">Sim</mat-option>
+            <mat-option value="Não">Não</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Vacinas (separadas por vírgula)</mat-label>
+          <input matInput [(ngModel)]="petVaccines" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>URL da Foto</mat-label>
+            <input matInput [(ngModel)]="petPhotoUrl" />
+        </mat-form-field>
+        
+      </div>
+  
+      <div *ngIf="data.action === 'delete'">
+        <p>Tem certeza que deseja deletar o pet <b>"{{ data.pet?.name }}"</b>?</p><br>          
+      </div>
+    </div>
+    
+    <div mat-dialog-actions align="end">
+      <button class="mr" mat-button (click)="onCancel()">Cancelar</button>
+      <button class="mr" mat-raised-button color="primary" (click)="onConfirm()">
+        {{ data.action === 'delete' ? 'Deletar' : 'Salvar' }}
+      </button>
+    </div>
+    
+  </div>
+  

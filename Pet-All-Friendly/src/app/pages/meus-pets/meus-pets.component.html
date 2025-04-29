@@ -1,0 +1,65 @@
+<div class="container">
+  <!-- Parte Esquerda (25vw) com os cards dos pets -->
+  <div class="pets-list">
+    <div class="header-pets-list">
+      <h3>Meus pets:</h3>
+      <button mat-raised-button color="primary" (click)="registerNewPet()">
+        <mat-icon>add</mat-icon>Registrar pet
+      </button>
+    </div>
+
+    <mat-card *ngFor="let pet of pets" class="pet-card" (click)="selectPet(pet)">
+      <img mat-card-image [src]="pet.image" alt="Foto de {{ pet.name }}" class="pet-thumbnail">
+
+      <div class="pet-info-container">
+        <div class="pet-name">{{ pet.name }}</div>
+        <div class="pet-age">Idade: {{ pet.age }} anos</div>
+        <div class="pet-race">Raça: {{ pet.race }}</div>
+        <div class="pet-gender">Sexo: {{ pet.gender }}</div>
+        <div class="pet-actions">
+          <button mat-icon-button color="primary" (click)="editPet(pet); $event.stopPropagation()">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deletePet(pet); $event.stopPropagation()">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Parte Direita (75vw) com as informações do pet selecionado -->
+  <div class="pet-info">
+    <ng-container *ngIf="selectedPet; else noPetSelected">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ selectedPet.name }}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="selectedPet.image" alt="Foto de {{ selectedPet.name }}" class="pet-detail-image">
+        <mat-card-content>
+          <p><strong>Idade:</strong> {{ selectedPet.age }} anos</p>
+          <p><strong>Espécie:</strong> {{ selectedPet.species }}</p>
+          <p><strong>Raça:</strong> {{ selectedPet.race }}</p>
+          <p><strong>Peso:</strong> {{ selectedPet.weight }} kg</p>
+          <p><strong>Altura:</strong> {{ selectedPet.height }} m</p>
+          <p><strong>Sexo:</strong> {{ selectedPet.gender }}</p>
+          <p><strong>Microchip:</strong> {{ selectedPet.microchip }}</p>
+          <p><strong>Vacinas:</strong> {{ selectedPet.vaccines }}</p>
+          <p><strong>Dono:</strong> {{ selectedPet.owner }}</p>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+
+    <ng-template #noPetSelected>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Nenhum pet selecionado</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Selecione um pet da lista ou registre um novo.</p>
+          <button mat-raised-button color="primary" (click)="registerNewPet()">Registrar novo pet</button>
+        </mat-card-content>
+      </mat-card>
+    </ng-template>
+  </div>
+</div>

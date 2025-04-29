@@ -1,0 +1,48 @@
+<div class="main">
+    <h2 mat-dialog-title>
+      {{ data.action === 'create' ? 'Cadastrar Novo Lembrete' : data.action === 'edit' ? 'Editar Lembrete' : 'Deletar Lembrete' }}
+    </h2>
+  
+    <div mat-dialog-content class="p-4">
+      <div class="form-group" *ngIf="data.action !== 'delete'">
+        
+        <mat-form-field appearance="fill">
+          <mat-label>Título</mat-label>
+          <input matInput [(ngModel)]="lembreteTitulo" />
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Descrição</mat-label>
+          <input matInput [(ngModel)]="lembreteDescricao" />
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Data e Hora</mat-label>
+          <input matInput type="datetime-local" [(ngModel)]="lembreteDataHora" />
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+            <mat-label>Pet</mat-label>
+            <mat-select [(ngModel)]="lembretePetId">
+              <mat-option *ngFor="let pet of pets" [value]="pet.id">
+                {{ pet.nome }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+  
+      </div>
+  
+      <div *ngIf="data.action === 'delete'">
+        <p>Tem certeza que deseja deletar o lembrete <b>"{{ data.lembrete?.title }}"</b>?</p><br>          
+      </div>
+    </div>
+  
+    <div mat-dialog-actions align="end">
+      <button class="mr" mat-button (click)="onCancel()">Cancelar</button>
+      <button class="mr" mat-raised-button color="primary" (click)="onConfirm()">
+        {{ data.action === 'delete' ? 'Deletar' : 'Salvar' }}
+      </button>
+    </div>
+  </div>
+  
