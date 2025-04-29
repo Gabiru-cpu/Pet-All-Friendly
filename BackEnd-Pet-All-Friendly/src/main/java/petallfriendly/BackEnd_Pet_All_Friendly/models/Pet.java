@@ -21,7 +21,9 @@ public class Pet {
     private String raca;
     private Integer idade;
 
-    private String fotoUrl; // URL da imagem ou caminho no sistema
+    @Lob
+    private byte imageData;
+
     private Double peso; // em kg
     private Double altura; // em cm
 

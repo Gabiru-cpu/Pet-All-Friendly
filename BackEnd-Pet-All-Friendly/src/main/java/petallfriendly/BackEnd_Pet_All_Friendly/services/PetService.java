@@ -11,6 +11,7 @@ import petallfriendly.BackEnd_Pet_All_Friendly.models.User;
 import petallfriendly.BackEnd_Pet_All_Friendly.repositories.PetRepository;
 import petallfriendly.BackEnd_Pet_All_Friendly.repositories.UserRepository;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +42,8 @@ public class PetService {
     private PetDTO convertToDTO(Pet pet) {
         DonoDTO donoDTO = new DonoDTO(pet.getDono().getId(), pet.getDono().getNome());
 
+
+
         return PetDTO.builder()
                 .id(pet.getId())
                 .nome(pet.getNome())
@@ -48,7 +51,7 @@ public class PetService {
                 .especie(pet.getEspecie())
                 .raca(pet.getRaca())
                 .idade(pet.getIdade())
-                .fotoUrl(pet.getFotoUrl())
+                .imageData(pet.getImageData())
                 .peso(pet.getPeso())
                 .altura(pet.getAltura())
                 .microchip(pet.getMicrochip())
@@ -69,13 +72,15 @@ public class PetService {
 
         User user = authService.getAuthenticatedUser();
 
+
+
         Pet pet = new Pet();
         pet.setNome(petDTO.getNome());
         pet.setSexo(petDTO.getSexo());
         pet.setEspecie(petDTO.getEspecie());
         pet.setRaca(petDTO.getRaca());
         pet.setIdade(petDTO.getIdade());
-        pet.setFotoUrl(petDTO.getFotoUrl());
+        pet.setImageData(petDTO.getImageData());
         pet.setPeso(petDTO.getPeso());
         pet.setAltura(petDTO.getAltura());
         pet.setMicrochip(petDTO.getMicrochip());
@@ -111,7 +116,7 @@ public class PetService {
             pet.setEspecie(petDTO.getEspecie());
             pet.setRaca(petDTO.getRaca());
             pet.setIdade(petDTO.getIdade());
-            pet.setFotoUrl(petDTO.getFotoUrl());
+            pet.setImageData(petDTO.getImageData());
             pet.setPeso(petDTO.getPeso());
             pet.setAltura(petDTO.getAltura());
             pet.setMicrochip(petDTO.getMicrochip());

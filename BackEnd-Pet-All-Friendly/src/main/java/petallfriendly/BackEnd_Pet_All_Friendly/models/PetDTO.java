@@ -1,5 +1,7 @@
 package petallfriendly.BackEnd_Pet_All_Friendly.models;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Lob;
 import lombok.*;
 
 import java.util.List;
@@ -16,7 +18,7 @@ public class PetDTO {
     private String especie;
     private String raca;
     private Integer idade;
-    private String fotoUrl;
+    private String imageData;
     private Double peso;
     private Double altura;
     private Boolean microchip;
