@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import petallfriendly.BackEnd_Pet_All_Friendly.models.Pet;
 import petallfriendly.BackEnd_Pet_All_Friendly.models.PetDTO;
 import petallfriendly.BackEnd_Pet_All_Friendly.services.PetService;
 
@@ -30,23 +29,7 @@ public class PetController {
     }*/
 
     @PostMapping
-    public ResponseEntity<?> createPet(@RequestParam("image") MultipartFile file) throws IOException {
-        Pet petDTO = new Pet();
-
-        List<String> vacinas = new ArrayList<>();
-        vacinas.add("x");
-        
-        petDTO.setNome("rex");
-        petDTO.setSexo(true);
-        petDTO.setEspecie("dog");
-        petDTO.setRaca("srd");
-        petDTO.setIdade(3);
-        petDTO.setImageData(file.getBytes());
-        petDTO.setPeso(10.5);
-        petDTO.setAltura(3.5);
-        petDTO.setMicrochip(true);
-        petDTO.setVacinas(vacinas);
-
+    public ResponseEntity<?> createPet(@RequestBody PetDTO petDTO){
         return petService.createPet(petDTO);
     }
 
