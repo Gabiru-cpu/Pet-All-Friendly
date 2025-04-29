@@ -22,7 +22,7 @@ public class Pet {
     private Integer idade;
 
     @Lob
-    private byte imageData;
+    private byte[] imageData;
 
     private Double peso; // em kg
     private Double altura; // em cm

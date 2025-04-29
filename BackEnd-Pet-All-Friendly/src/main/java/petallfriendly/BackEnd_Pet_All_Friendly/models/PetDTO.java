@@ -18,7 +18,7 @@ public class PetDTO {
     private String especie;
     private String raca;
     private Integer idade;
-    private String imageData;
+    private byte[] imageData;
     private Double peso;
     private Double altura;
     private Boolean microchip;

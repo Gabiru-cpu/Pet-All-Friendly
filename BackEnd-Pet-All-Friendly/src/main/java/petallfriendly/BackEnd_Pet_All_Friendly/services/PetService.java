@@ -42,8 +42,6 @@ public class PetService {
     private PetDTO convertToDTO(Pet pet) {
         DonoDTO donoDTO = new DonoDTO(pet.getDono().getId(), pet.getDono().getNome());
 
-
-
         return PetDTO.builder()
                 .id(pet.getId())
                 .nome(pet.getNome())
@@ -60,7 +58,7 @@ public class PetService {
                 .build();
     }
 
-    public ResponseEntity<?> createPet(PetDTO petDTO) {
+    public ResponseEntity<?> createPet(Pet petDTO) {
         // Validações
         if (petDTO.getNome() == null || petDTO.getNome().trim().isEmpty()) {
             return ResponseEntity.badRequest().body("O nome do pet não pode ser vazio.");
@@ -72,29 +70,14 @@ public class PetService {
 
         User user = authService.getAuthenticatedUser();
 
-
-
-        Pet pet = new Pet();
-        pet.setNome(petDTO.getNome());
-        pet.setSexo(petDTO.getSexo());
-        pet.setEspecie(petDTO.getEspecie());
-        pet.setRaca(petDTO.getRaca());
-        pet.setIdade(petDTO.getIdade());
-        pet.setImageData(petDTO.getImageData());
-        pet.setPeso(petDTO.getPeso());
-        pet.setAltura(petDTO.getAltura());
-        pet.setMicrochip(petDTO.getMicrochip());
-        pet.setVacinas(petDTO.getVacinas());
-        pet.setDono(user);
-
+        petDTO.setDono(user);
         // Salva o pet no banco de dados, e o id será gerado automaticamente
-        Pet savedPet = petRepository.save(pet);
+        Pet savedPet = petRepository.save(petDTO);
 
         // Convertendo para PetDTO e retornando a resposta
         PetDTO savedPetDTO = convertToDTO(savedPet);
         return ResponseEntity.ok(savedPetDTO); // Retorna o PetDTO com o id gerado
     }
-
 
     public ResponseEntity<?> updatePet(Long id, PetDTO petDTO) {
         return petRepository.findById(id).map(pet -> {
