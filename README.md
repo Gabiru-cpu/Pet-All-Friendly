@@ -23,7 +23,7 @@
 - Padrões de boas práticas com serviços, controladores e modelos organizados
 
 ### Banco de Dados
-- PostgreSQL
+- MySQL
 - Migrations e scripts SQL para estrutura inicial
 
 ---
@@ -47,4 +47,4 @@
 - Angular CLI 19.2.6
 - Java 17.0.10
 - Maven
-- PostgreSQL
+- MySQL
