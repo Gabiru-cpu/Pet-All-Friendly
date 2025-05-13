@@ -71,12 +71,12 @@ export class LoginComponent {
       email: this.registerData.email,
       senha: this.registerData.senha
     };
-
+  
     this.userService.register(registerPayload).subscribe({
-      next: (_) => {
-        alert('Conta criada com sucesso! Faça login para continuar.');
-        this.isRegistering = false; // Volta para tela de login
-        // Limpa o formulário de registro
+      next: (res) => {
+        alert(res);
+        this.isRegistering = false;
+  
         this.registerData = {
           nome: '',
           telefone: '',
@@ -85,8 +85,9 @@ export class LoginComponent {
         };
       },
       error: (err) => {
-        console.error('Erro no registro', err);
+        alert(err.error || err.message || 'Erro desconhecido.');
       }
     });
   }
+  
 }

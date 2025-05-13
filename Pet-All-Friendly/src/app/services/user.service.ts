@@ -16,7 +16,7 @@ export class UserService {
   }  
 
   register(user: UserDTO) {
-    return this.http.post(`${this.baseUrl}user/register`, user);
+    return this.http.post(`${this.baseUrl}user/register`, user, { responseType: 'text' });
   }
 
   forgotPassword(email: string) {

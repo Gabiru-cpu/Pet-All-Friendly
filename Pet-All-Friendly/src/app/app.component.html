@@ -54,6 +54,6 @@
     <app-topbar *ngIf="showTopbar" (toggleSidebarEvent)="toggleSidebar()"></app-topbar>
 
     <router-outlet></router-outlet>
-    <app-footer></app-footer>
+    <app-footer *ngIf="showFooter"></app-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

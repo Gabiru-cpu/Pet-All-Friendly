@@ -16,6 +16,7 @@ import { filter } from 'rxjs/operators';
 export class AppComponent implements AfterViewInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
   showTopbar: boolean = true;
+  showFooter: boolean = true;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -23,6 +24,7 @@ export class AppComponent implements AfterViewInit {
   ) {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
       this.showTopbar = this.router.url !== '/'; // Esconde a Topbar na rota '/'
+      this.showFooter = this.router.url !== '/'; // Esconde o Footer na rota '/'
   
       if (this.router.url !== '/') {
 
