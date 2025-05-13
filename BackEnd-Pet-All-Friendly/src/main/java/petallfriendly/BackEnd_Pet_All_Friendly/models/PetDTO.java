@@ -23,5 +23,6 @@ public class PetDTO {
     private Double altura;
     private Boolean microchip;
     private List<String> vacinas;
+    private List<LembreteDTO> lembretes;
     private DonoDTO dono;
 }

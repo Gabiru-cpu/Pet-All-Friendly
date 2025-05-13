@@ -1,65 +1,179 @@
-<div class="container">
-  <!-- Parte Esquerda (25vw) com os cards dos pets -->
-  <div class="pets-list">
-    <div class="header-pets-list">
-      <h3>Meus pets:</h3>
-      <button mat-raised-button color="primary" (click)="registerNewPet()">
-        <mat-icon>add</mat-icon>Registrar pet
-      </button>
-    </div>
+<div class="body">
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        
+        <button class="mr" mat-raised-button color="primary" (click)="registerNewPet()">
+          <i class="fas fa-plus"></i>
+          Novo pet
+        </button>
+        <!-- botão do ux<button class="btn-primary" (click)="registerNewPet()"> 
+          <i class="fas fa-plus"></i>
+          Registrar novo pet
+        </button> -->
+        <button class="btn-secondary">
+          <i class="fas fa-filter"></i>
+          <!-- Filtrar -->
+        </button>
+      </div>
 
-    <mat-card *ngFor="let pet of pets" class="pet-card" (click)="selectPet(pet)">
-      <img mat-card-image [src]="pet.image" alt="Foto de {{ pet.name }}" class="pet-thumbnail">
+      <div class="search-box">
+        <input type="search" class="search-input" placeholder="Buscar" />
+      </div>
 
-      <div class="pet-info-container">
-        <div class="pet-name">{{ pet.name }}</div>
-        <div class="pet-age">Idade: {{ pet.age }} anos</div>
-        <div class="pet-race">Raça: {{ pet.race }}</div>
-        <div class="pet-gender">Sexo: {{ pet.gender }}</div>
-        <div class="pet-actions">
-          <button mat-icon-button color="primary" (click)="editPet(pet); $event.stopPropagation()">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="warn" (click)="deletePet(pet); $event.stopPropagation()">
-            <mat-icon>delete</mat-icon>
-          </button>
+      <div class="pet-list">
+        <div class="pet-card" *ngFor="let pet of pets" (click)="selectPet(pet)">
+          <img [src]="pet.image" alt="Foto do pet" class="pet-avatar" />
+          <div class="pet-info">
+            <p class="pet-name">{{ pet.name }}</p>
+            <p class="pet-race">{{ pet.race }}</p>
+            <div class="pet-details">
+              <span class="pet-tag">
+                <i class="fas fa-calendar-alt"></i> {{ pet.age }} anos
+              </span>
+              <span class="pet-tag" [class.female]="pet.gender === 'Fêmea'" [class.male]="pet.gender === 'Macho'">
+                <i class="fas" [class.fa-venus]="pet.gender === 'Fêmea'" [class.fa-mars]="pet.gender === 'Macho'"></i> 
+                {{ pet.gender }}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
-    </mat-card>
-  </div>
+    </aside>
 
-  <!-- Parte Direita (75vw) com as informações do pet selecionado -->
-  <div class="pet-info">
-    <ng-container *ngIf="selectedPet; else noPetSelected">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>{{ selectedPet.name }}</mat-card-title>
-        </mat-card-header>
-        <img mat-card-image [src]="selectedPet.image" alt="Foto de {{ selectedPet.name }}" class="pet-detail-image">
-        <mat-card-content>
-          <p><strong>Idade:</strong> {{ selectedPet.age }} anos</p>
-          <p><strong>Espécie:</strong> {{ selectedPet.species }}</p>
-          <p><strong>Raça:</strong> {{ selectedPet.race }}</p>
-          <p><strong>Peso:</strong> {{ selectedPet.weight }} kg</p>
-          <p><strong>Altura:</strong> {{ selectedPet.height }} m</p>
-          <p><strong>Sexo:</strong> {{ selectedPet.gender }}</p>
-          <p><strong>Microchip:</strong> {{ selectedPet.microchip }}</p>
-          <p><strong>Vacinas:</strong> {{ selectedPet.vaccines }}</p>
-          <p><strong>Dono:</strong> {{ selectedPet.owner }}</p>
-        </mat-card-content>
-      </mat-card>
-    </ng-container>
+    <!-- Right Content -->
+    <div class="right-content">
+      <ng-container *ngIf="selectedPet; else noPetSelected">
+        <div class="right-header">
+          <div class="avatar-container">
+            <img alt="Foto do pet" class="avatar" [src]="selectedPet.image" />
+          </div>
+          <div class="info-container">
+            <div class="info-header">
+              <h1 class="info-title">
+                {{ selectedPet.name }}
+              </h1>
+              <div style="display: flex;">
+                <button class="edit-btn" type="button" (click)="editPet(selectedPet)" style="margin-right: .5rem;">
+                  <i class="fas fa-pencil-alt"></i>
+                  <u>Editar registro</u>
+                </button>
+                <button class="delete-btn" type="button" (click)="deletePet(selectedPet)">
+                  <i class="fas fa-trash-alt"></i>
+                <u>Excluir registro</u>
+                </button>
+              </div>
+            </div>
+            <p class="pet-breed">{{ selectedPet.race }}</p>
+            <div class="tag-container">
+              <span class="tag"><i class="fas fa-dog"></i> {{ selectedPet.species }}</span>
+              <span class="tag"><i class="fas fa-birthday-cake"></i> {{ selectedPet.age }} anos</span>
+              <span class="pet-tag" [class.female]="selectedPet.gender === 'Fêmea'" [class.male]="selectedPet.gender === 'Macho'">
+                <i class="fas" [class.fa-venus]="selectedPet.gender === 'Fêmea'" [class.fa-mars]="selectedPet.gender === 'Macho'"></i> 
+                {{ selectedPet.gender }}
+              </span>
+            </div>
 
-    <ng-template #noPetSelected>
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title style="text-align: center;">Nenhum pet selecionado</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p style="text-align: center;">Selecione um pet da lista ou registre um novo.</p>
-          <button style="width: 100%;" mat-raised-button color="primary" (click)="registerNewPet()"><mat-icon>add</mat-icon>Registrar novo pet</button>
-        </mat-card-content>
-      </mat-card>
-    </ng-template>
+            <div class="tag-container">
+              <span class="tag"><i class="fas fa-weight"></i> {{ selectedPet.weight }} kg</span>
+              <span class="tag"><i class="fas fa-ruler-vertical"></i> {{ selectedPet.height }} m</span>
+              <span class="tag"><i class="fas fa-microchip"></i> {{ selectedPet.microchip }}</span>
+              <span *ngIf="selectedPet.vaccines !== 'Não informado'" class="tag">
+                <i class="fas fa-syringe"></i> Vacinas: {{ selectedPet.vaccines }}
+              </span>
+            </div>
+
+            <div class="about-pet">
+              <p class="about-title">Sobre o pet</p>
+              <p class="about-text">Dono: {{ selectedPet.owner }}</p>
+            </div>
+          </div>
+        </div>
+
+        <i class="fas fa-history" style="margin-top: .5rem;"></i>
+        <span> Atividades recentes</span>
+
+
+
+
+
+        <div class="activity-section">
+          <div class="activity-list">
+            <div class="activity-card">
+              <div class="activity-header">
+                <i class="fas fa-info-circle"></i>
+                <span>Informações do pet</span>
+              </div>
+              <p>Este pet foi registrado no sistema.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-section">
+          <div class="activity-list">
+            <div class="activity-card">
+              <div class="activity-header">
+                <i class="fas fa-file-medical-alt">
+                </i>
+                <span style="margin-right: 1rem;">
+                 Visita ao veterinário
+                </span>
+                <span style="margin-right: 1rem;">
+                  <i class="fas fa-calendar-alt">
+                  </i>
+                  21/02/2025
+                 </span>
+                 <span style="margin-right: 1rem;">
+                  <i class="fas fa-user-md">
+                  </i>
+                  Dr. Pedro
+                 </span>
+              </div>
+              <p>
+                Procedimentos realizados
+               </p>
+               <p>
+                Cuidados do pet
+               </p>
+            </div>      
+           
+          </div>
+          
+         </div>
+
+      </ng-container>
+
+      <ng-template #noPetSelected>
+        <div class="no-pet-selected">
+          <div class="right-header">
+            <div class="avatar-container">
+              <img alt="Sem pet selecionado" class="avatar" src="assets/home-bg.jpg" />
+            </div>
+            <div class="info-container">
+              <div class="info-header">
+                <h1 class="info-title">
+                  Nenhum pet selecionado
+                </h1>
+              </div>
+              <p class="pet-breed">Selecione um pet da lista</p>
+              <div class="about-pet">
+                <p class="about-text">Ou registre um novo pet clicando no botão abaixo</p>
+                <button class="mr" mat-raised-button color="primary" (click)="registerNewPet()">
+                  <i class="fas fa-plus"></i>
+                  Novo pet
+                </button>
+                <!-- botao do ux <button class="btn-primary" (click)="registerNewPet()" style="margin-top: 20px;">
+                  <i class="fas fa-plus"></i>
+                  Registrar novo pet
+                </button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
   </div>
 </div>
+
+

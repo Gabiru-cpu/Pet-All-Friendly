@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import petallfriendly.BackEnd_Pet_All_Friendly.models.DonoDTO;
-import petallfriendly.BackEnd_Pet_All_Friendly.models.Pet;
-import petallfriendly.BackEnd_Pet_All_Friendly.models.PetDTO;
-import petallfriendly.BackEnd_Pet_All_Friendly.models.User;
+import petallfriendly.BackEnd_Pet_All_Friendly.models.*;
 import petallfriendly.BackEnd_Pet_All_Friendly.repositories.PetRepository;
 import petallfriendly.BackEnd_Pet_All_Friendly.repositories.UserRepository;
 
@@ -39,8 +36,33 @@ public class PetService {
         }).orElse(ResponseEntity.notFound().build());
     }
 
+    private List<Lembrete> convertToLembretes(List<LembreteDTO> lembretesDTO, Pet pet) {
+        if (lembretesDTO == null) return null;
+
+        return lembretesDTO.stream().map(dto -> {
+            Lembrete lembrete = new Lembrete();
+            lembrete.setId(dto.getId()); // cuidado: normalmente não setamos ID em novos lembretes
+            lembrete.setTitulo(dto.getTitulo());
+            lembrete.setDescricao(dto.getDescricao());
+            lembrete.setDataHora(dto.getDataHora());
+            lembrete.setPet(pet); // importante!
+            return lembrete;
+        }).collect(Collectors.toList());
+    }
+
     private PetDTO convertToDTO(Pet pet) {
         DonoDTO donoDTO = new DonoDTO(pet.getDono().getId(), pet.getDono().getNome());
+
+        List<LembreteDTO> lembretesDTO = pet.getLembretes().stream().map(lembrete ->
+                LembreteDTO.builder()
+                        .id(lembrete.getId())
+                        .titulo(lembrete.getTitulo())
+                        .descricao(lembrete.getDescricao())
+                        .dataHora(lembrete.getDataHora())
+                        .petId(pet.getId())
+                        .petNome(pet.getNome())
+                        .build()
+        ).collect(Collectors.toList());
 
         return PetDTO.builder()
                 .id(pet.getId())
@@ -54,9 +76,11 @@ public class PetService {
                 .altura(pet.getAltura())
                 .microchip(pet.getMicrochip())
                 .vacinas(pet.getVacinas())
+                .lembretes(lembretesDTO)
                 .dono(donoDTO)
                 .build();
     }
+
 
     public ResponseEntity<?> createPet(PetDTO petDTO) {
         // Validações
@@ -81,6 +105,8 @@ public class PetService {
         pet.setAltura(petDTO.getAltura());
         pet.setMicrochip(petDTO.getMicrochip());
         pet.setVacinas(petDTO.getVacinas());
+        List<Lembrete> lembretes = convertToLembretes(petDTO.getLembretes(), pet);
+        pet.setLembretes(lembretes);
         pet.setDono(user);
 
         // Salva o pet no banco de dados, e o id será gerado automaticamente
@@ -117,6 +143,8 @@ public class PetService {
             pet.setAltura(petDTO.getAltura());
             pet.setMicrochip(petDTO.getMicrochip());
             pet.setVacinas(petDTO.getVacinas());
+            List<Lembrete> lembretes = convertToLembretes(petDTO.getLembretes(), pet);
+            pet.setLembretes(lembretes);
 
             petRepository.save(pet);
             return ResponseEntity.ok("Pet atualizado.");

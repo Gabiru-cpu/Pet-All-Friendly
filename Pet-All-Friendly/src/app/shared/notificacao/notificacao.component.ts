@@ -64,6 +64,7 @@ export class NotificacaoComponent implements OnInit {
   criarLembrete(): void {
     const dialogRef = this.dialog.open(ModalLembreteComponent, {
       width: '400px',
+      height: '500px',
       disableClose: true,
       data: {
         action: 'create'
@@ -96,6 +97,7 @@ export class NotificacaoComponent implements OnInit {
   editarLembrete(lembrete: any): void {
     const dialogRef = this.dialog.open(ModalLembreteComponent, {
       width: '400px',
+      height: '500px',
       disableClose: true,
       data: {
         action: 'edit',

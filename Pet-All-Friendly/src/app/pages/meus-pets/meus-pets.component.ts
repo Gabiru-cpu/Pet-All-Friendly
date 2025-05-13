@@ -61,9 +61,10 @@ export class MeusPetsComponent implements OnInit {
 
   registerNewPet() {
     const dialogRef = this.dialog.open(ModalPetComponent, {
-      width: '35vw',
-      height: '75vh',
+      width: '50vw',
+      height: '700px',
       maxWidth: 'none',
+      maxHeight: 'none',
       data: { action: 'create' }
     });
 
@@ -85,9 +86,10 @@ export class MeusPetsComponent implements OnInit {
 
   editPet(pet: any) {
     const dialogRef = this.dialog.open(ModalPetComponent, {
-      width: '35vw',
-      height: '75vh',
+      width: '50vw',
+      height: '700px',
       maxWidth: 'none',
+      maxHeight: 'none',
       data: { action: 'edit', pet }
     });
   
@@ -103,6 +105,7 @@ export class MeusPetsComponent implements OnInit {
           }
         }).add(() => {
           this.loadMyPets();
+          this.selectedPet = pet;
         });
       }
     });
@@ -119,11 +122,13 @@ export class MeusPetsComponent implements OnInit {
         this.petService.deletePet(pet.id).subscribe({
           next: () => {
             console.log('Pet deletado com sucesso');
+            this.selectedPet = null;            
           },
           error: (error) => {
             console.error('Erro ao deletar pet:', error);
           }
         }).add(() => {
+          this.selectedPet = null;
           this.loadMyPets();
         });
       }

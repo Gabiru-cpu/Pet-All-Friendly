@@ -35,7 +35,7 @@ export class ModalPetComponent {
   ) {
     if (data.pet && (data.action === 'edit' || data.action === 'delete')) { 
       this.petName = data.pet.name || '';
-      this.petSpecie = data.pet.specie || '';
+      this.petSpecie = data.pet.species || '';
       this.petBreed = data.pet.race || '';
       this.petAge = data.pet.age || null;
       this.petWeight = data.pet.weight || null;
@@ -44,7 +44,6 @@ export class ModalPetComponent {
       this.petMicrochip = data.pet.microchip ? 'Sim' : 'Não';
       this.petVaccines = data.pet.vaccines || '';
       this.petPhotoUrl = data.pet?.image || '';
-
     }
   }
   
