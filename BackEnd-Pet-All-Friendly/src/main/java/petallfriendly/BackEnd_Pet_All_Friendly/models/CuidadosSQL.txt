@@ -1,6 +1,6 @@
 INSERT INTO cuidados (nome, alimentacao, habitat, legislacao, cuidados_gerais) VALUES
 (
-  '',
+  'Calopsita',
   'Sementes de girassol, sorgo, aveia, painço, complementadas com pão duro, espiga de milho verde, cenoura, talos de couve e farinha de ostra como fonte de cálcio.',
   'Nativa da Austrália, encontrada em áreas de clima árido ou semiárido, sempre próximas à água.',
   'No Brasil, a criação de calopsitas não exige autorização específica, mas é importante adquirir aves de criadores legalizados e manter nota fiscal como comprovante de origem legal.',
