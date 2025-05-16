@@ -40,10 +40,12 @@ export class ModalPetComponent {
       this.petAge = data.pet.age || null;
       this.petWeight = data.pet.weight || null;
       this.petHeight = data.pet.height || null;
-      this.petGender = data.pet.sexo ? 'Macho' : 'Fêmea';
-      this.petMicrochip = data.pet.microchip ? 'Sim' : 'Não';
+      this.petGender = data.pet.gender === 'Macho' ? 'Macho' : 'Fêmea';
+      this.petMicrochip = data.pet.microchip === 'Sim' ? 'Sim' : 'Não';
       this.petVaccines = data.pet.vaccines || '';
       this.petPhotoUrl = data.pet?.image || '';
+      console.log('data.pet', data.pet);
+      console.log(this.petGender);console.log(this.petMicrochip);
     }
   }
   
@@ -60,6 +62,12 @@ export class ModalPetComponent {
         action: this.data.action
       });
     } else {
+      if(this.data.action === 'create'){
+        if (!this.petPhotoUrl) {
+          this.fileError = 'É necessário selecionar uma imagem JPG ou PNG.';
+          return;
+        }
+      }
       // Para edit ou create, manda o pet
       this.dialogRef.close({
         confirmed: true,
@@ -86,13 +94,13 @@ export class ModalPetComponent {
   
     const file = input.files[0];
   
-    if (file.size > 2 * 1024 * 1024) {
-      this.fileError = 'A imagem deve ter no máximo 2MB.';
+    if (file.size > 5 * 1024 * 1024) {
+      this.fileError = 'A imagem deve ter no máximo 5MB.';
       return;
     }
   
-    if (!file.type.match('image/jpeg')) {
-      this.fileError = 'A imagem deve ser um arquivo JPG.';
+    if (!file.type.match('image/jpeg') && !file.type.match('image/png')) {
+      this.fileError = 'A imagem deve ser um arquivo JPG ou PNG.';
       return;
     }
 
@@ -109,4 +117,13 @@ export class ModalPetComponent {
     reader.readAsDataURL(file);
   }
   
+
+  capitalizeSpecie(value: string): void {
+  this.petSpecie = value
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
 }

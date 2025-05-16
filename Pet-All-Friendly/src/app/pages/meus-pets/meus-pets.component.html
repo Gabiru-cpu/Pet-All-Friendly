@@ -19,8 +19,9 @@
       </div>
 
       <div class="search-box">
-        <input type="search" class="search-input" placeholder="Buscar" />
+        <input #searchInput type="search" class="search-input" placeholder="Buscar" (input)="filterPets(searchInput.value)"/>
       </div>
+      
 
       <div class="pet-list">
         <div class="pet-card" *ngFor="let pet of pets" (click)="selectPet(pet)">
@@ -98,49 +99,42 @@
 
 
 
-        <div class="activity-section">
+        <div class="activity-section" *ngIf="selectedPet?.care">
           <div class="activity-list">
             <div class="activity-card">
               <div class="activity-header">
-                <i class="fas fa-info-circle"></i>
-                <span>Informações do pet</span>
+                <i class="ft fas fa-info-circle"></i>
+                <span class="ft">Cuidados para {{ selectedPet.species }}</span>
               </div>
-              <p>Este pet foi registrado no sistema.</p>
+              <p class="fc"><strong>Alimentação: <br></strong> {{ selectedPet.care.alimentacao }}</p>
+              <br><p class="fc"><strong>Habitat: <br></strong> {{ selectedPet.care.habitat }}</p>
+              <br><p class="fc"><strong>Legislação: <br></strong> {{ selectedPet.care.legislacao }}</p>
+              <br><p class="fc"><strong>Cuidados gerais: <br></strong> {{ selectedPet.care.cuidadosGerais }}</p>
             </div>
           </div>
         </div>
 
-        <div class="activity-section">
+
+        <div class="activity-section" *ngIf="selectedPet?.reminders?.length > 0">
           <div class="activity-list">
-            <div class="activity-card">
+            <div class="activity-card" *ngFor="let lembrete of selectedPet.reminders">
               <div class="activity-header">
-                <i class="fas fa-file-medical-alt">
-                </i>
-                <span style="margin-right: 1rem;">
-                 Visita ao veterinário
+                <i class="ft fas fa-file-medical-alt"></i>
+                <span class="ft" style="margin-right: 1rem;">{{ lembrete.titulo }}</span>
+                <span class="ft" style="margin-right: 1rem;">
+                  <i class="fas fa-calendar-alt"></i>
+                  {{ lembrete.dataHora | date:'dd/MM/yyyy HH:mm' }}
                 </span>
-                <span style="margin-right: 1rem;">
-                  <i class="fas fa-calendar-alt">
-                  </i>
-                  21/02/2025
-                 </span>
-                 <span style="margin-right: 1rem;">
-                  <i class="fas fa-user-md">
-                  </i>
-                  Dr. Pedro
-                 </span>
+                <span class="ft" style="margin-right: 1rem;">
+                  <i class="fas fa-user-md"></i>
+                  Dono: {{ selectedPet.owner }}
+                </span>
               </div>
-              <p>
-                Procedimentos realizados
-               </p>
-               <p>
-                Cuidados do pet
-               </p>
-            </div>      
-           
+              <p class="fc">{{ lembrete.descricao }}</p>
+            </div>
           </div>
-          
-         </div>
+        </div>
+
 
       </ng-container>
 

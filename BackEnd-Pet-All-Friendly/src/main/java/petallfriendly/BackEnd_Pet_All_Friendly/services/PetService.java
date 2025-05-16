@@ -18,6 +18,7 @@ public class PetService {
 
     private final PetRepository petRepository;
     private final UserRepository userRepository;
+    private final CuidadosService cuidadosService;
     private final AuthService authService;
 
     public ResponseEntity<?> getMyPets() {
@@ -64,6 +65,19 @@ public class PetService {
                         .build()
         ).collect(Collectors.toList());
 
+        // Buscar os cuidados pela espécie (nome)
+        CuidadosDTO cuidadosDTO = cuidadosService.findAll().stream()
+                .filter(c -> c.getNome().equalsIgnoreCase(pet.getEspecie()))
+                .findFirst()
+                .map(c -> CuidadosDTO.builder()
+                        .nome(c.getNome())
+                        .alimentacao(c.getAlimentacao())
+                        .habitat(c.getHabitat())
+                        .legislacao(c.getLegislacao())
+                        .cuidadosGerais(c.getCuidadosGerais())
+                        .build())
+                .orElse(null);
+
         return PetDTO.builder()
                 .id(pet.getId())
                 .nome(pet.getNome())
@@ -78,8 +92,10 @@ public class PetService {
                 .vacinas(pet.getVacinas())
                 .lembretes(lembretesDTO)
                 .dono(donoDTO)
+                .cuidados(cuidadosDTO) // <- Adicionando aqui
                 .build();
     }
+
 
 
     public ResponseEntity<?> createPet(PetDTO petDTO) {

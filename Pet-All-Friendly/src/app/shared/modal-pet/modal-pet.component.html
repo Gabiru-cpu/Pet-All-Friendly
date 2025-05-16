@@ -13,8 +13,13 @@
   
         <mat-form-field appearance="fill">
           <mat-label>Espécie</mat-label>
-          <input matInput [(ngModel)]="petSpecie" />
+          <input
+            matInput
+            [(ngModel)]="petSpecie"
+            (ngModelChange)="capitalizeSpecie($event)"
+          />
         </mat-form-field>
+
 
         <mat-form-field appearance="fill">
           <mat-label>Raça</mat-label>
@@ -64,7 +69,7 @@
         </mat-form-field>
   
         <div class="foto-upload-wrapper">
-          <label for="photoUpload">Foto do Pet (JPG até 2MB)</label><br>
+          <label for="photoUpload">Foto do Pet (JPG ou PNG até 5MB)</label><br>
         
           <button mat-raised-button color="primary" (click)="fileInput.click()">
             Escolher arquivo
@@ -75,15 +80,16 @@
             type="file"
             id="photoUpload"
             (change)="onFileSelected($event)"
-            accept=".jpg,image/jpeg"
+            accept=".jpg,.jpeg,.png,image/jpeg,image/png"
             class="input-foto-hidden"
+            required
           />
-        
+
           <div class="file-name" *ngIf="selectedFileName">
             {{ selectedFileName }}
           </div>
-        
-          <small *ngIf="fileError" class="file-error">{{ fileError }}</small>
+          
+          <br><small *ngIf="fileError" class="file-error">{{ fileError }}</small>
         </div> 
       </div>
   

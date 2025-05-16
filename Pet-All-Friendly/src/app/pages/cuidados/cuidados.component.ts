@@ -1,42 +1,121 @@
-import { NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import { CuidadoDTO } from '../../models/cuidados-dto-model';
+import { CuidadosService } from '../../services/cuidados.service';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cuidados',
   standalone: true,
-  imports: [MatCardModule, NgFor],
+  imports: [
+    MatCardModule,
+    MatPaginatorModule,
+    MatInputModule,
+    FormsModule,
+    NgFor,
+  ],
   templateUrl: './cuidados.component.html',
   styleUrl: './cuidados.component.scss'
 })
-export class CuidadosComponent {
-  animais = [
-    {
-      nome: 'Arara-azul',
-      nomeCientifico: 'Anodorhynchus hyacinthinus',
-      alimentacao: 'Frutos de palmeiras, sementes e nozes.',
-      habitat: 'Pantanal, Cerrado e Florestas tropicais do Brasil.',
-      licenciamento: 'Necessário autorização do IBAMA e cadastro no SISFAUNA para manutenção em cativeiro.',
-      cuidadosGerais: 'Necessita de espaço amplo para voo, socialização com outras aves e manejo veterinário especializado.',
-      imagem: 'https://ciclovivo.com.br/wp-content/uploads/2023/03/arara-azul-casal-1024x682.jpg'
+export class CuidadosComponent implements OnInit {
+  animais: CuidadoDTO[] = [];
+  animaisFiltrados: CuidadoDTO[] = [];
+
+  // Paginação
+  pageSize = 3;
+  currentPage = 0;
+  paginatedAnimais: CuidadoDTO[] = [];
+
+  // Filtro
+  filtro = '';
+
+  constructor(private cuidadosService: CuidadosService) {}
+
+  ngOnInit(): void {
+  this.cuidadosService.getAllCuidados().subscribe({
+    next: (cuidados) => {
+      this.animais = cuidados;
+      this.filtrarAnimais();
+      cuidados.forEach(animal => {
+        this.buscarImagemDoAnimal(animal.nome); // <- chamada necessária
+      });
     },
-    {
-      nome: 'Tatu-bola',
-      nomeCientifico: 'Tolypeutes tricinctus',
-      alimentacao: 'Insetos, frutas e pequenos vertebrados.',
-      habitat: 'Caatinga e Cerrado brasileiros.',
-      licenciamento: 'É uma espécie ameaçada, protegida por legislação federal. A criação só é permitida em projetos de conservação autorizados.',
-      cuidadosGerais: 'Necessita de ambiente simulado natural, alimentação variada e controle de parasitas.',
-      imagem: 'assets/imagens/arara-azul.jpg'
-    },
-    {
-      nome: 'Mico-leão-dourado',
-      nomeCientifico: 'Leontopithecus rosalia',
-      alimentacao: 'Frutas, insetos, pequenos vertebrados e néctar.',
-      habitat: 'Florestas tropicais do Rio de Janeiro.',
-      licenciamento: 'Apenas instituições de pesquisa e conservação credenciadas podem mantê-los.',
-      cuidadosGerais: 'Necessita de enriquecimento ambiental constante e interação social com outros micos.',
-      imagem: 'assets/imagens/arara-azul.jpg'
+    error: (err) => {
+      console.error('Erro ao buscar cuidados:', err);
     }
-  ];
+  });
+}
+
+
+  // Aplica o filtro e atualiza a paginação
+  filtrarAnimais(): void {
+  const filtroLower = this.filtro.toLowerCase().trim();
+  this.animaisFiltrados = this.animais.filter((animal) =>
+    animal.nome.toLowerCase().includes(filtroLower)
+  );
+  this.atualizarPaginacao();
+
+  // Buscar imagens dos animais filtrados
+  this.animaisFiltrados.forEach(animal => {
+    if (!this.imagens[animal.nome]) {
+      this.buscarImagemDoAnimal(animal.nome);
+    }
+  });
+}
+
+
+  // Atualiza os animais da página atual
+  atualizarPaginacao(): void {
+    const start = this.currentPage * this.pageSize;
+    const end = start + this.pageSize;
+    this.paginatedAnimais = this.animaisFiltrados.slice(start, end);
+  }
+
+  // Evento de mudança de página
+  onPageChange(event: PageEvent): void {
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    this.atualizarPaginacao();
+  }
+
+
+
+
+
+
+
+
+    // Map de imagens (nome do animal → URL da imagem)
+    imagens: { [nome: string]: string } = {};
+
+  buscarImagemDoAnimal(nome: string): void {
+    const termoBusca = this.traducoes[nome.toLowerCase()] || nome;
+
+    this.cuidadosService.buscarImagem(termoBusca).subscribe({
+      next: (res) => {
+        const imagem = res.photos?.[1] || res.photos?.[0]; // segunda imagem, ou a primeira se não tiver segunda
+        if (imagem) {
+          this.imagens[nome] = imagem.src.medium;
+        } else {
+          this.imagens[nome] = 'assets/placeholder.jpg';
+        }
+      },
+      error: (err) => {
+        console.warn(`Erro ao buscar imagem para ${nome}`, err);
+        this.imagens[nome] = 'assets/placeholder.jpg';
+      }
+    });
+  }
+
+
+
+  private traducoes: { [key: string]: string } = {
+    'calopsita': 'cockatiel',
+    'coelho polonês': 'polish rabbit',
+    'jabuti-piranga': 'red-footed tortoise'
+    // Adicione outros aqui se necessário
+  };
 }

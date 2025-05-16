@@ -17,7 +17,8 @@ import { ModalPetComponent } from '../../shared/modal-pet/modal-pet.component';
   styleUrl: './meus-pets.component.scss'
 })
 export class MeusPetsComponent implements OnInit {
-  pets: any[] = [];
+  allPets: any[] = []; // lista usada ao escrever na pesquisa
+  pets: any[] = []; // lista original
   selectedPet: any = null;
 
   constructor(
@@ -33,7 +34,7 @@ export class MeusPetsComponent implements OnInit {
   loadMyPets() {
     this.petService.getMyPets().subscribe({
       next: (petsFromApi: PetDTO[]) => {
-        this.pets = petsFromApi.map(pet => ({
+        this.allPets = petsFromApi.map(pet => ({
           id: pet.id,
           name: pet.nome,
           age: pet.idade,
@@ -45,14 +46,30 @@ export class MeusPetsComponent implements OnInit {
           microchip: pet.microchip !== undefined ? (pet.microchip ? 'Sim' : 'Não') : 'Não informado',
           vaccines: pet.vacinas?.length ? pet.vacinas.join(', ') : 'Não informado',
           image: pet.imageData ? `data:image/jpeg;base64,${pet.imageData}` : 'assets/default-pet.png',
-          owner: pet.dono ? pet.dono.nome : 'Sem dono'
+          owner: pet.dono ? pet.dono.nome : 'Sem dono',
+          reminders: pet.lembretes ?? [],
+          care: pet.cuidados ?? null
         }));
+        this.pets = [...this.allPets];  // Copia para a lista filtrada
         this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Erro ao carregar pets:', error);
       }
     });
+  }
+
+  filterPets(searchTerm: string) {
+    if (!searchTerm) {
+      this.pets = [...this.allPets]; // Sem filtro mostra todos
+    } else {
+      const lowerTerm = searchTerm.toLowerCase();
+      this.pets = this.allPets.filter(pet => 
+        pet.name.toLowerCase().includes(lowerTerm) || 
+        pet.race.toLowerCase().includes(lowerTerm) ||
+        pet.species?.toLowerCase().includes(lowerTerm)
+      );
+    }
   }
 
   selectPet(pet: any) {
@@ -79,6 +96,8 @@ export class MeusPetsComponent implements OnInit {
           error: (error) => {
             console.error('Erro ao cadastrar pet:', error);
           }
+        }).add(() => {
+          this.loadMyPets();
         });
       }
     });
@@ -105,7 +124,7 @@ export class MeusPetsComponent implements OnInit {
           }
         }).add(() => {
           this.loadMyPets();
-          this.selectedPet = pet;
+          this.selectedPet = null;
         });
       }
     });

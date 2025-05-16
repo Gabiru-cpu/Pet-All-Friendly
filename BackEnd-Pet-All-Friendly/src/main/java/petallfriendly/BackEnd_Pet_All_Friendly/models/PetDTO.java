@@ -25,4 +25,5 @@ public class PetDTO {
     private List<String> vacinas;
     private List<LembreteDTO> lembretes;
     private DonoDTO dono;
+    private CuidadosDTO cuidados;
 }
