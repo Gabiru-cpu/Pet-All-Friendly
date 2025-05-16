@@ -11,6 +11,19 @@
 </head>
 <body class="mat-typography">
   <app-root></app-root>
+
+  
+  <!-- VLibras Widget -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
 </body>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApL9B1mFslUyp6RTjLlVwYw35GiPmyK9w&libraries=places"></script>
 </html>

@@ -10,7 +10,7 @@
 - Angular Forms
 - Angular Router
 - Integração com VLibras (acessibilidade em Libras)
-- Upload de arquivos PDF
+- Upload de imagens
 - Ordenação e manipulação de textos
 - Design responsivo com SCSS
 
@@ -32,6 +32,10 @@
 
 - ✅ Cadastro de animais silvestres e domésticos
 - ✅ Sistema de lembretes (vacinas, consultas, alimentação, etc)
+- ✅ Integração com o Vlibras
+- ✅ API do Google Maps para buscar petshops e veterianos na sua região
+- ✅ API do Pexel para buscar imagens dos animais para tela de cuidados (evitando lotação de imagens no projeto)
+- ✅ Cadastro de animais silvestres e domésticos
 - ✅ Autenticação com tokens JWT
 - ✅ Perfis de usuário com OAuth2 e permissões
 - ✅ Interface amigável e acessível
