@@ -32,9 +32,9 @@
 
 - ✅ Cadastro de animais silvestres e domésticos
 - ✅ Sistema de lembretes (vacinas, consultas, alimentação, etc)
-- ✅ Integração com o Vlibras
+- ✅ API Vlibras intregada
 - ✅ API do Google Maps para buscar petshops e veterianos na sua região
-- ✅ API do Pexel para buscar imagens dos animais para tela de cuidados (evitando lotação de imagens no projeto)
+- ✅ API do Pexels integrada para buscar imagens dos animais na tela de cuidados
 - ✅ Cadastro de animais silvestres e domésticos
 - ✅ Autenticação com tokens JWT
 - ✅ Perfis de usuário com OAuth2 e permissões
