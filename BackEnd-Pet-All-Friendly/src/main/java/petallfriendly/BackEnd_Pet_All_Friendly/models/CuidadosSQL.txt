@@ -11,12 +11,12 @@ INSERT INTO cuidados (nome, alimentacao, habitat, legislacao, cuidados_gerais) V
   'Dieta onívora: frutos, folhas, flores, insetos, carniça e fezes. Em cativeiro, recomenda-se ração específica para jabutis, rica em fibras, vitaminas e minerais.',
   'Habitam matas brasileiras, desde o Nordeste até o Sudeste, incluindo Cerrado, Pantanal, Caatinga e Mata Atlântica. Preferem áreas de transição entre floresta e savana, como clareiras e bordas de florestas.',
   'Necessária autorização do IBAMA e cadastro no SISFAUNA para manutenção em cativeiro. A criação deve seguir as normas estabelecidas para garantir o bem-estar do animal.',
-  'Devem ser mantidos em ambientes com espaço para exercício, com temperatura entre 27°C e 30°C e alta umidade. Abrigos devem ser fornecidos para proteção contra o frio. A iluminação deve incluir luz UVB para metabolização adequada do cálcio. A dieta deve ser variada e rica em fibras.'
+  'Devem ser mantidos em ambientes com espaço para exercício, com temperatura entre 27°C e 30°C e alta umidade. Abrigos devem ser fornecidos para proteção contra o frio. A iluminação deve incluir luz UVB para metabolização adequada do cálcio.'
 ),
 (
-  'Coelho Polonês',
+  'Coelho Europeu',
   'Ração específica para coelhos, feno de qualidade, vegetais frescos como cenoura, alface e couve, além de água limpa e fresca sempre disponível.',
-  'Originário da Europa, adaptado a diversos ambientes. Em cativeiro, deve ser mantido em locais limpos, secos e bem ventilados.',
+  'O habitat natural é a Península Ibérica (Espanha, Portugal e Andorra) e o sudoeste da França. A espécie prefere áreas mistas, com refúgios (matos, bosques) e zonas abertas (pastagens, terrenos agrícolas).',
   'A criação de coelhos domésticos não exige autorização específica, mas é importante adquirir de criadores legalizados e manter nota fiscal como comprovante de origem legal.',
   'Necessitam de gaiolas espaçosas, com substrato adequado para absorção de urina e fezes. Devem ter acesso diário a exercícios fora da gaiola. É importante realizar vermifugação periódica e consultas veterinárias regulares.'
 );

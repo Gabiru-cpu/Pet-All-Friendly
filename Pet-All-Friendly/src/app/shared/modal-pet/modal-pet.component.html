@@ -82,8 +82,9 @@
             (change)="onFileSelected($event)"
             accept=".jpg,.jpeg,.png,image/jpeg,image/png"
             class="input-foto-hidden"
-            required
+            [required]="data.action === 'create'"
           />
+
 
           <div class="file-name" *ngIf="selectedFileName">
             {{ selectedFileName }}

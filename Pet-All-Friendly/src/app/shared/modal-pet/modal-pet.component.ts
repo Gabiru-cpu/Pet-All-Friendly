@@ -55,38 +55,49 @@ export class ModalPetComponent {
   }
 
   onConfirm(): void {
-    if (this.data.action === 'delete') {
-      // Para delete, só confirma, sem passar um pet
-      this.dialogRef.close({
-        confirmed: true,
-        action: this.data.action
-      });
-    } else {
-      if(this.data.action === 'create'){
-        if (!this.petPhotoUrl) {
-          this.fileError = 'É necessário selecionar uma imagem JPG ou PNG.';
-          return;
-        }
-      }
-      // Para edit ou create, manda o pet
-      this.dialogRef.close({
-        confirmed: true,
-        action: this.data.action,
-        pet: {
-          nome: this.petName,
-          especie: this.petSpecie,
-          raca: this.petBreed,
-          idade: this.petAge,
-          peso: this.petWeight,
-          altura: this.petHeight,
-          sexo: this.petGender === 'Macho',
-          microchip: this.petMicrochip === 'Sim',
-          vacinas: this.petVaccines ? this.petVaccines.split(',').map(v => v.trim()) : [],
-          imageData: this.petPhotoUrl?.replace(/^data:image\/[^;]+;base64,/, '')
-        }
-      });
+  if (this.data.action === 'delete') {
+    // Ação de deletar: apenas confirma sem enviar dados do pet
+    this.dialogRef.close({
+      confirmed: true,
+      action: this.data.action
+    });
+  } else {
+    // Validação da imagem apenas na criação
+    if (this.data.action === 'create' && !this.petPhotoUrl) {
+      this.fileError = 'É necessário selecionar uma imagem JPG ou PNG.';
+      return;
     }
+
+    // Limpa erro de imagem se houver
+    this.fileError = null;
+
+    // Prepara o objeto do pet
+    const petData = {
+      nome: this.petName,
+      especie: this.petSpecie,
+      raca: this.petBreed,
+      idade: this.petAge,
+      peso: this.petWeight,
+      altura: this.petHeight,
+      sexo: this.petGender === 'Macho',
+      microchip: this.petMicrochip === 'Sim',
+      vacinas: this.petVaccines
+        ? this.petVaccines.split(',').map(v => v.trim())
+        : [],
+      imageData: this.petPhotoUrl
+        ? this.petPhotoUrl.replace(/^data:image\/[^;]+;base64,/, '')
+        : null
+    };
+
+    // Fecha o modal e retorna os dados
+    this.dialogRef.close({
+      confirmed: true,
+      action: this.data.action,
+      pet: petData
+    });
   }
+}
+
   
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;

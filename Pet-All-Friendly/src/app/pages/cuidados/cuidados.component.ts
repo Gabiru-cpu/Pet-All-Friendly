@@ -115,6 +115,7 @@ export class CuidadosComponent implements OnInit {
   private traducoes: { [key: string]: string } = {
     'calopsita': 'cockatiel',
     'coelho polonês': 'polish rabbit',
+    'coelho europeu': 'european rabbit',
     'jabuti-piranga': 'red-footed tortoise'
     // Adicione outros aqui se necessário
   };
