@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
     if (token) {
       return true;
     } else {
-      return this.router.parseUrl('/');
+      return this.router.parseUrl('/login');
     }
   }
 }

@@ -5,25 +5,24 @@
   </button>
 
   <div class="logo">
-    <a class="logo-img" routerLink="/home">
+    <a class="logo-img" routerLink="/">
       <img src="assets/logo.png" alt="Pet All Friendly" class="logo-img">
     </a>
   </div>
 
   <!-- Links de Navegação (Escondidos no Mobile) -->
   <div class="nav-links" *ngIf="!isMobile">
-    <button mat-button routerLink="/home"> <mat-icon>home</mat-icon> Home</button>
+    <button mat-button routerLink="/"> <mat-icon>home</mat-icon> Home</button>
     <button mat-button routerLink="/meus-pets"> <mat-icon>pets</mat-icon> Meus Pets</button>
     <button mat-button routerLink="/cuidados"> <mat-icon>library_books</mat-icon> Cuidados</button>
     <button mat-button routerLink="/hospitais"> <mat-icon>local_hospital</mat-icon> Hospitais</button>
     <button mat-button routerLink="/petshops"> <mat-icon>add_shopping_cart</mat-icon> Pet Shop</button>
-    <button mat-button routerLink="/premium"> <mat-icon>stars</mat-icon> Premium</button>
   </div>
 
   <span class="spacer"></span>
 
   <!-- Ícone de Notificações com Badge -->
-  <button mat-icon-button (click)="openDialog()" style="margin-right: .5rem;"
+  <button *ngIf='userName !== ""' mat-icon-button (click)="openDialog()" style="margin-right: .5rem;"
           matBadge="{{ unreadNotifications }}"
           matBadgeColor="warn"
           [matBadgeHidden]="unreadNotifications === 0">
@@ -32,9 +31,10 @@
 
   <!-- Menu do Usuário (Escondido no Mobile) -->
   <mat-menu #userMenu="matMenu">
-    <button mat-menu-item>Perfil</button>
-    <button mat-menu-item (click)="logout()">Sair</button>
+    <button mat-menu-item *ngIf='userName !== ""' (click)="logout()">Sair</button>
+    <button mat-menu-item *ngIf='userName === ""' [routerLink]="['/login']">Login</button>
   </mat-menu>
+
   <button mat-button [matMenuTriggerFor]="userMenu" class="user-btn" *ngIf="!isMobile">
     <mat-icon class="usernameicon">account_circle</mat-icon>
     <span *ngIf="!isMobile" class="username">{{ userName }}</span>

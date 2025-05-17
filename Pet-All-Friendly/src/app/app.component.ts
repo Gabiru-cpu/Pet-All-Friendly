@@ -18,15 +18,17 @@ export class AppComponent implements AfterViewInit {
   showTopbar: boolean = true;
   showFooter: boolean = true;
 
+    user = { name: '', email: '' };
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(Router) private router: Router
   ) {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
-      this.showTopbar = this.router.url !== '/'; // Esconde a Topbar na rota '/'
-      this.showFooter = this.router.url !== '/'; // Esconde o Footer na rota '/'
+      this.showTopbar = this.router.url !== '/login'; // Esconde a Topbar na rota '/'
+      this.showFooter = this.router.url !== '/login'; // Esconde o Footer na rota '/'
   
-      if (this.router.url !== '/') {
+      if (this.router.url !== '/login') {
 
         if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
           const nome = localStorage.getItem('nomeContaPAF');
@@ -44,12 +46,6 @@ export class AppComponent implements AfterViewInit {
       }
     });
   }
-  
-
-  user = {
-    name: 'Douglas Silva',
-    email: 'Douglassilva@email.com'
-  };
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -76,6 +72,6 @@ export class AppComponent implements AfterViewInit {
       localStorage.removeItem('emailContaPAF');
     }
     
-    window.location.href = '/';
+    window.location.href = '/login';
   }  
 }

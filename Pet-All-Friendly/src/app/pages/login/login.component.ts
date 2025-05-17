@@ -4,10 +4,12 @@ import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from '../../services/user.service';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterModule, CommonModule, FormsModule, HttpClientModule],
+  imports: [RouterModule, CommonModule, FormsModule, MatIcon, MatButton, HttpClientModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -51,7 +53,7 @@ export class LoginComponent {
           localStorage.setItem('tokenPAF', response.token);
           localStorage.setItem('nomeContaPAF', response.nome);
           localStorage.setItem('emailContaPAF', response.email);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/']);
         }
         
         

@@ -9,14 +9,19 @@
       </div>
 
       <div class="sidenav-content">
-        <button class="no-dflex" mat-button (click)="sidenav.close()">
+        <button class="no-dflex" *ngIf='user.name !== ""' mat-button (click)="sidenav.close()">
           <span>
             <mat-icon>account_circle</mat-icon> {{ user.name }}
           </span>
           <p>{{ user.email }}</p>
         </button>
+        <button class="no-dflex" [routerLink]="['/login']" *ngIf='user.name === ""' mat-button (click)="sidenav.close()">
+          <span>
+            <mat-icon>account_circle</mat-icon> Login
+          </span>
+        </button>
 
-        <button mat-button routerLink="/home" (click)="sidenav.close()">
+        <button mat-button routerLink="/" (click)="sidenav.close()">
           <mat-icon>home</mat-icon> Home
         </button>
 
@@ -34,10 +39,6 @@
 
         <button mat-button routerLink="/petshops" (click)="sidenav.close()">
           <mat-icon>add_shopping_cart</mat-icon> Pet Shop
-        </button>
-
-        <button mat-button routerLink="/premium" (click)="sidenav.close()">
-          <mat-icon>stars</mat-icon> Premium
         </button>
       </div>
 

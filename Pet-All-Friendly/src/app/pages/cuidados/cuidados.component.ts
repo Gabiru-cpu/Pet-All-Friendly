@@ -96,7 +96,7 @@ export class CuidadosComponent implements OnInit {
 
     this.cuidadosService.buscarImagem(termoBusca).subscribe({
       next: (res) => {
-        const imagem = res.photos?.[1] || res.photos?.[0]; // segunda imagem, ou a primeira se não tiver segunda
+        const imagem = res.photos?.[3] || res.photos?.[2]; // segunda imagem, ou a primeira se não tiver segunda
         if (imagem) {
           this.imagens[nome] = imagem.src.medium;
         } else {
@@ -116,7 +116,8 @@ export class CuidadosComponent implements OnInit {
     'calopsita': 'cockatiel',
     'coelho polonês': 'polish rabbit',
     'coelho europeu': 'european rabbit',
-    'jabuti-piranga': 'red-footed tortoise'
+    'jabuti-piranga': 'red-footed tortoise',
+    'tucano': 'toucan',
     // Adicione outros aqui se necessário
   };
 }

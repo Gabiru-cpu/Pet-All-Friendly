@@ -39,6 +39,6 @@ export class CuidadosService {
       Authorization: this.API_KEY
     });
 
-    return this.http.get(`${this.BASE_URL}?query=${animal}&per_page=2&page=1`, { headers });
+    return this.http.get(`${this.BASE_URL}?query=${animal}&per_page=3&page=1`, { headers });
   }
 }

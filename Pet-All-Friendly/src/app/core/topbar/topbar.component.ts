@@ -95,6 +95,6 @@ export class TopbarComponent implements OnInit {
       localStorage.removeItem('emailContaPAF');      
     }
     
-    window.location.href = '/';
+    window.location.href = '/login';
   }  
 }
