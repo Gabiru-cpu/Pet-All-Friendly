@@ -12,6 +12,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'meus-pets', component: MeusPetsComponent, canActivate: [AuthGuard] },
   { path: 'cuidados', component: CuidadosComponent, canActivate: [AuthGuard] },
-  { path: 'hospitais', component: HospitaisComponent },
+  { path: 'veterinarios', component: HospitaisComponent },
   { path: 'petshops', component: PetShopsComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
